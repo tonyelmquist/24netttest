@@ -28,3 +28,7 @@ i.star.small.icon.selected {
 .deselect-button{
     float: right;
 }
+
+.root{
+    margin-top: 20px;
+}

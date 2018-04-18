@@ -13,8 +13,6 @@ import convert from "xml-js";
 import SelectedList from "../components/SelectedList";
 import {setCurrencies} from '../actions/currencies';
 
-import NoDataMessage from "../components/NoData";
-
 class App extends React.Component {
   constructor(props) {
     super(props);
