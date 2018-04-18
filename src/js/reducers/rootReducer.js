@@ -1,4 +1,5 @@
 import Actions from "../constants/reduxConstants";
+import convert from "xml-js";
 
 const defaultState = {
   currencies: []
@@ -38,8 +39,26 @@ export default function currencies(state = defaultState, action) {
         currencies: newCurrencies
       };
     case Actions.SET_CURRENCIES:
+      const result = convert.xml2js(action.currencyData, {
+        compact: true,
+        spaces: 4
+      });
+      const dataSet =
+        result["message:StructureSpecificData"]["message:DataSet"]["Series"];
+      let parsedData = dataSet.map(item => {
+        const quoteItem = {
+          baseCurrency: item._attributes.BASE_CUR,
+          quoteCurrency: item._attributes.QUOTE_CUR,
+          timePeriod: item.Obs._attributes.TIME_PERIOD,
+          rate: item.Obs._attributes.OBS_VALUE,
+          selected: false
+        };
+        return quoteItem;
+      });
+      const filterTime = parsedData[parsedData.length - 1].timePeriod;
+      parsedData = parsedData.filter(item => item.timePeriod === filterTime);
       return {
-        currencies: action.currencies
+        currencies: parsedData
       };
     case Actions.DESELECT_ALL:
       newCurrencies = state.currencies.map(currencyItem => {

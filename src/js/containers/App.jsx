@@ -9,7 +9,6 @@ import {
 } from "semantic-ui-react";
 import PropTypes from 'prop-types';
 import axios from "axios";
-import convert from "xml-js";
 import SelectedList from "../components/SelectedList";
 import {setCurrencies, selectCurrency, deselectCurrency, deselectAll} from '../actions/currencies';
 
@@ -25,35 +24,13 @@ class App extends React.Component {
     axios
       .get(`https://data.norges-bank.no/api/data/EXR?lastNObservations=1`) // fetch the current XKCD comic. The site does not support CORS requests, so we make the request via a pass-through node server
       .then(response => {
-        const parsedData = this.parseCurrencyData(response.data);
-        this.props.dispatch(setCurrencies(parsedData));
+        console.log(response.data);
+        this.props.dispatch(setCurrencies(response.data));
       })
       .catch(function(error) {
         console.log(error);
       });
   }
-
-  parseCurrencyData = currencyData => {
-    const result = convert.xml2js(currencyData, {
-      compact: true,
-      spaces: 4
-    });
-    const dataSet =
-      result["message:StructureSpecificData"]["message:DataSet"]["Series"];
-    let parsedData = dataSet.map(item => {
-      const quoteItem = {
-        baseCurrency: item._attributes.BASE_CUR,
-        quoteCurrency: item._attributes.QUOTE_CUR,
-        timePeriod: item.Obs._attributes.TIME_PERIOD,
-        rate: item.Obs._attributes.OBS_VALUE,
-        selected: false
-      };
-      return quoteItem;
-    });
-    const filterTime = parsedData[parsedData.length - 1].timePeriod;
-    parsedData = parsedData.filter(item => item.timePeriod === filterTime);
-    return parsedData;
-  };
 
   selectCurrency = currency => {
     this.props.dispatch(selectCurrency(currency));
