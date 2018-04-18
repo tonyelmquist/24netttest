@@ -24,7 +24,6 @@ class App extends React.Component {
     axios
       .get(`https://data.norges-bank.no/api/data/EXR?lastNObservations=1`) // fetch the current XKCD comic. The site does not support CORS requests, so we make the request via a pass-through node server
       .then(response => {
-        console.log(response.data);
         this.props.dispatch(setCurrencies(response.data));
       })
       .catch(function(error) {
