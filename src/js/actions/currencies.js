@@ -9,7 +9,7 @@ export function selectCurrency(currencyName) {
 }
 
 export function deselectCurrency(currencyName) {
-    return { type: Actions.SELECT_CURRENCY, currencyName };
+    return { type: Actions.DESELECT_CURRENCY, currencyName };
 }
 
 export function deselectAll() {
