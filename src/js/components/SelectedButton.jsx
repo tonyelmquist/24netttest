@@ -13,7 +13,7 @@ const SelectedButton = props => (
     key={props.currency.baseCurrency}
     className="currency-button"
     onClick={() => props.handleClick(props.currency.baseCurrency)}
-    color="green"
+    color={props.returnSelected ? "green" : "grey"}
   >
     <span className="currency-name">{props.currency.baseCurrency}</span>
     <span className="flag-span">
@@ -25,14 +25,15 @@ const SelectedButton = props => (
       current rate in NOK: {props.currency.rate}
     </span>
     <span className="currency-star">
-      <Icon name="star" size="small" className="selected" />
+      <Icon name="star" size="small" className={props.returnSelected ? "selected" : "unselected"} />
     </span>
   </Button>
 );
 
 SelectedButton.propTypes = {
   currency: PropTypes.object,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  returnSelected: PropTypes.bool,
 };
 
 export default SelectedButton;

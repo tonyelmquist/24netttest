@@ -8,8 +8,6 @@ import {
 } from "semantic-ui-react";
 import axios from "axios";
 import convert from "xml-js";
-import currencyCodes from "../constants/currencyCodes";
-import UnselectedList from "../components/UnselectedList";
 import SelectedList from "../components/SelectedList";
 
 import NoDataMessage from "../components/NoData";
@@ -131,9 +129,10 @@ class App extends React.Component {
           <Grid.Row>
             <Grid.Column width={1} />
             <Grid.Column width={6}>
-              <UnselectedList
+             <SelectedList
                 currencies={this.state.currencies}
                 handleClick={this.selectCurrency}
+                returnSelected={false}
               />
             </Grid.Column>
             <Grid.Column width={2} />
@@ -141,6 +140,7 @@ class App extends React.Component {
               <SelectedList
                 currencies={this.state.currencies}
                 handleClick={this.deselectCurrency}
+                returnSelected={true}
               />
             </Grid.Column>
             <Grid.Column width={1} />

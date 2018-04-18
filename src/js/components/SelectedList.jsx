@@ -9,9 +9,9 @@ import SelectedButton from './SelectedButton';
 const SelectedList = props => (
     <Segment>
         {props.currencies.filter(
-        currency => currencyCodes[currency.baseCurrency] && currency.selected === true
+        currency => currencyCodes[currency.baseCurrency] && currency.selected === props.returnSelected
       ).map(currency => (
-       <SelectedButton currency={currency} handleClick={props.handleClick} />
+       <SelectedButton returnSelected={props.returnSelected} currency={currency} handleClick={props.handleClick} />
       ))}
     </Segment>
 );
@@ -24,6 +24,7 @@ SelectedList.defaultProps = {
 SelectedList.propTypes = {
     currencies: PropTypes.array,
     handleClick: PropTypes.func,
+    returnSelected: PropTypes.bool,
 };
 
 export default SelectedList;
