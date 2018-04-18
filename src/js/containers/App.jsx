@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { connect } from 'react-redux';
 import {
   Button,
   Segment,
   Container,
   Grid,
 } from "semantic-ui-react";
+import PropTypes from 'prop-types';
 import axios from "axios";
 import convert from "xml-js";
 import SelectedList from "../components/SelectedList";
+import {setCurrencies} from '../actions/currencies';
 
 import NoDataMessage from "../components/NoData";
 
@@ -16,7 +19,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currencies: [],
       isLoading: true
     };
   }
@@ -26,7 +28,7 @@ class App extends React.Component {
       .get(`https://data.norges-bank.no/api/data/EXR?lastNObservations=1`) // fetch the current XKCD comic. The site does not support CORS requests, so we make the request via a pass-through node server
       .then(response => {
         const parsedData = this.parseCurrencyData(response.data);
-        this.setState({ currencies: parsedData });
+        this.props.dispatch(setCurrencies(parsedData));
       })
       .catch(function(error) {
         console.log(error);
@@ -56,7 +58,7 @@ class App extends React.Component {
   };
 
   selectCurrency = currency => {
-    const oldCurrencies = this.state.currencies;
+    const oldCurrencies = this.props.currencies;
     const newCurrencies = oldCurrencies.map(currencyItem => {
       return currencyItem.baseCurrency === currency
         ? {
@@ -68,11 +70,11 @@ class App extends React.Component {
           }
         : currencyItem;
     });
-    this.setState({ currencies: newCurrencies });
+    this.props.dispatch(setCurrencies(newCurrencies));
   };
 
   deselectCurrency = currency => {
-    const oldCurrencies = this.state.currencies;
+    const oldCurrencies = this.props.currencies;
     const newCurrencies = oldCurrencies.map(currencyItem => {
       return currencyItem.baseCurrency === currency
         ? {
@@ -84,11 +86,11 @@ class App extends React.Component {
           }
         : currencyItem;
     });
-    this.setState({ currencies: newCurrencies });
+    this.props.dispatch(setCurrencies(newCurrencies));
   };
 
   deselectAll = () => {
-    const oldCurrencies = this.state.currencies;
+    const oldCurrencies = this.props.currencies;
     const newCurrencies = oldCurrencies.map(currencyItem => {
       return {
         baseCurrency: currencyItem.baseCurrency,
@@ -98,7 +100,7 @@ class App extends React.Component {
         selected: false
       };
     });
-    this.setState({ currencies: newCurrencies });
+    this.props.dispatch(setCurrencies(newCurrencies));
   };
 
   render() {
@@ -117,7 +119,6 @@ class App extends React.Component {
               <span>click to de-select</span>
               <Button
                 className="deselect-button"
-                small
                 onClick={() => this.deselectAll()}
                 color="blue"
               >
@@ -130,7 +131,7 @@ class App extends React.Component {
             <Grid.Column width={1} />
             <Grid.Column width={6}>
              <SelectedList
-                currencies={this.state.currencies}
+                currencies={this.props.currencies}
                 handleClick={this.selectCurrency}
                 returnSelected={false}
               />
@@ -138,7 +139,7 @@ class App extends React.Component {
             <Grid.Column width={2} />
             <Grid.Column width={6}>
               <SelectedList
-                currencies={this.state.currencies}
+                currencies={this.props.currencies}
                 handleClick={this.deselectCurrency}
                 returnSelected={true}
               />
@@ -151,6 +152,13 @@ class App extends React.Component {
   }
 }
 
-export default App;
+App.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    currencies: PropTypes.array.isRequired
+};
 
-ReactDOM.render(<App />, document.getElementById("app"));
+const mapStateToProps = state => ({
+    currencies: state.currencies,
+});
+
+export default connect(mapStateToProps)(App);

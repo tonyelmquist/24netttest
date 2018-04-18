@@ -11,7 +11,7 @@ const SelectedList = props => (
         {props.currencies.filter(
         currency => currencyCodes[currency.baseCurrency] && currency.selected === props.returnSelected
       ).map(currency => (
-       <SelectedButton returnSelected={props.returnSelected} currency={currency} handleClick={props.handleClick} />
+       <SelectedButton key={currency.baseCurrency} returnSelected={props.returnSelected} currency={currency} handleClick={props.handleClick} />
       ))}
     </Segment>
 );

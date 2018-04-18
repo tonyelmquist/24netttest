@@ -1,5 +1,5 @@
 {
-  "name": "xkcd",
+  "name": "24netbutikktest",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -32,6 +32,8 @@
     "axios": "^0.18.0",
     "file-loader": "^1.1.11",
     "prop-types": "^15.6.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "request": "^2.85.0",
     "sass-loader": "^6.0.7",
     "semantic-ui-css": "^2.3.1",
