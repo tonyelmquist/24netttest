@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import axios from "axios";
 import convert from "xml-js";
 import SelectedList from "../components/SelectedList";
-import {setCurrencies} from '../actions/currencies';
+import {setCurrencies, selectCurrency, deselectCurrency, deselectAll} from '../actions/currencies';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,49 +56,15 @@ class App extends React.Component {
   };
 
   selectCurrency = currency => {
-    const oldCurrencies = this.props.currencies;
-    const newCurrencies = oldCurrencies.map(currencyItem => {
-      return currencyItem.baseCurrency === currency
-        ? {
-            baseCurrency: currencyItem.baseCurrency,
-            quoteCurrency: currencyItem.quoteCurrency,
-            timePeriod: currencyItem.timePeriod,
-            rate: currencyItem.rate,
-            selected: true
-          }
-        : currencyItem;
-    });
-    this.props.dispatch(setCurrencies(newCurrencies));
+    this.props.dispatch(selectCurrency(currency));
   };
 
   deselectCurrency = currency => {
-    const oldCurrencies = this.props.currencies;
-    const newCurrencies = oldCurrencies.map(currencyItem => {
-      return currencyItem.baseCurrency === currency
-        ? {
-            baseCurrency: currencyItem.baseCurrency,
-            quoteCurrency: currencyItem.quoteCurrency,
-            timePeriod: currencyItem.timePeriod,
-            rate: currencyItem.rate,
-            selected: false
-          }
-        : currencyItem;
-    });
-    this.props.dispatch(setCurrencies(newCurrencies));
+    this.props.dispatch(deselectCurrency(currency));
   };
 
   deselectAll = () => {
-    const oldCurrencies = this.props.currencies;
-    const newCurrencies = oldCurrencies.map(currencyItem => {
-      return {
-        baseCurrency: currencyItem.baseCurrency,
-        quoteCurrency: currencyItem.quoteCurrency,
-        timePeriod: currencyItem.timePeriod,
-        rate: currencyItem.rate,
-        selected: false
-      };
-    });
-    this.props.dispatch(setCurrencies(newCurrencies));
+    this.props.dispatch(deselectAll());
   };
 
   render() {
