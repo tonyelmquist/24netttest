@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<div
+  className="ui container"
+>
+  <div
+    className="ui grid"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="one wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <h1>
+          Currencies
+        </h1>
+        <p>
+          click to select
+        </p>
+      </div>
+      <div
+        className="two wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <h1>
+          Selected Currencies
+        </h1>
+        <span>
+          click to de-select
+        </span>
+        <button
+          className="ui blue button deselect-button"
+          disabled={undefined}
+          onClick={[Function]}
+          role="button"
+          tabIndex={undefined}
+        >
+          deselect all
+        </button>
+      </div>
+      <div
+        className="one wide column"
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="one wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <div
+          className="ui segment"
+        />
+      </div>
+      <div
+        className="two wide column"
+      />
+      <div
+        className="six wide column"
+      >
+        <div
+          className="ui segment"
+        />
+      </div>
+      <div
+        className="one wide column"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly 1`] = `
+<button
+  className="ui grey button currency-button"
+  disabled={undefined}
+  onClick={[Function]}
+  role="button"
+  tabIndex={undefined}
+>
+  <span
+    className="currency-name"
+  >
+    USD
+  </span>
+  <span
+    className="flag-span"
+  >
+    <i
+      className="as flag"
+    />
+  </span>
+  <span
+    className="currency-rate"
+  >
+    current rate in NOK: 
+    7.75
+  </span>
+  <span
+    className="currency-star"
+  >
+    <i
+      aria-hidden="true"
+      className="star small icon unselected"
+    />
+  </span>
+</button>
+`;

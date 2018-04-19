@@ -30,6 +30,10 @@ const SelectedButton = props => (
   </Button>
 );
 
+SelectedButton.defaultProps = {
+  currency: '',
+};
+
 SelectedButton.propTypes = {
   currency: PropTypes.object,
   handleClick: PropTypes.func,
