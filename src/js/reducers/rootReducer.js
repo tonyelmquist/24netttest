@@ -39,12 +39,12 @@ export default function currencies(state = defaultState, action) {
         currencies: newCurrencies
       };
     case Actions.SET_CURRENCIES:
-      const result = convert.xml2js(action.currencyData, {
+      const result = convert.xml2js(action.currencyData, { // converting XML to JSON rather than retrieving JSON directly because the JSON from the API was difficult to parse
         compact: true,
         spaces: 4
       });
       const dataSet =
-        result["message:StructureSpecificData"]["message:DataSet"]["Series"];
+        result["message:StructureSpecificData"]["message:DataSet"]["Series"]; //this is where the series are located in the JSON once the XML has been parsed
       let parsedData = dataSet.map(item => {
         const quoteItem = {
           baseCurrency: item._attributes.BASE_CUR,
