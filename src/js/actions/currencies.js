@@ -1,4 +1,4 @@
-import Actions from '../constants/reduxConstants';
+import Actions from '../constants/ReduxConstants';
 
 export function setCurrencies(currencyData) {
     return { type: Actions.SET_CURRENCIES, currencyData };
